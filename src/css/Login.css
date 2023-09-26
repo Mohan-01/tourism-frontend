@@ -33,19 +33,22 @@
     background-color: rgb(236, 236, 236);
 }
 
-.login-form input[type="submit"] {
+.login-form button[type="submit"] {
     width: -moz-fit-content;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     width: fit-content;
     border-radius: 20px;
     padding: .5rem 1.5rem;
     border: none;
     cursor: pointer;
-    background-color: white;
-    color: rgb(69, 194, 79);
+    background-color: white !important;
+    color: rgb(69, 194, 79) !important;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-.login-form input[type="submit"]:hover {
+.login-form button[type="submit"]:hover {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    background-color: rgb(69, 194, 79);
-    color: white;
+    background-color: rgb(69, 194, 79) !important;
+    color: white !important;
 }

@@ -53,6 +53,7 @@ function App() {
               setUser={setUser} 
               setMessage={setMessage}
               navigate={navigate}
+              cookies={cookies}
             />
           }
         />

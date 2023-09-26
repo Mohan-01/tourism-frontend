@@ -51,12 +51,13 @@ export async function handleLogin(e, setUser, setMessage, setColor, navigate, co
     navigate('/');
 }
 
-export async function handleLogout(setUser, setMessage, navigate) {
+export async function handleLogout(setUser, setMessage, navigate, cookies) {
     try {
         const data = await axios.get('http://localhost:4201/api/v1/users/logout');
         if(data.status === 200) {
             setUser(null);
             setMessage('Logout Successful')
+            cookies.remove('user')
         }
     } catch (e) {
         setMessage('Error');

@@ -2,6 +2,7 @@ import { handleLogin } from "../helpingFunctions"
 import '../css/Login.css';
 
 const Login = ({setUser, setMessage, setColor, navigate, cookies}) => {
+
   return (
     <main className="login">
       <div className="login-form">
@@ -11,7 +12,8 @@ const Login = ({setUser, setMessage, setColor, navigate, cookies}) => {
         <input type="email" name="email" id="email" />
         <label htmlFor="password">Password: </label>
         <input type="password" name="password" id="password" />
-        <input type="submit" value="Login" />
+        {/*<input type="submit" value="Login" />*/}
+        <button type="submit">Login</button>
       </form>
       </div>
     </main>
