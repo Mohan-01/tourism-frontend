@@ -1,0 +1,36 @@
+nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: rgb(80, 82, 80);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    height: 60px;
+    margin: 1rem;
+    border-radius: .5rem;
+}
+
+.bg-grey {
+    background-color: rgb(80, 82, 80);
+}
+
+nav > div {
+    flex: auto;
+}
+
+.nav--button{
+    display: flex;
+    text-align: right;
+    flex-direction: row-reverse;
+}
+
+.nav--button a {
+    margin-right: 10%;  
+}
+
+a:hover {
+    border-bottom: 2px solid white;
+}

@@ -1,0 +1,10 @@
+.admin-section {
+    padding: 1rem;
+}
+
+.admin-section h5 {
+    font-size: 14px;
+    color: white;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid currentColor;
+}

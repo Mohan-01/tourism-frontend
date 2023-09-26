@@ -1,0 +1,8 @@
+.link-item {
+    display: flex;
+    text-transform: uppercase;
+}
+
+.link-item > div {
+    padding: 1em;
+}

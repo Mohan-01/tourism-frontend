@@ -1,0 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(202, 202, 202);
+}
+
+a {
+  text-decoration: none;
+  color: rgb(219, 221, 223);
+  cursor: pointer;
+}
+
+.-inline {
+  display: inline;
+}
+
+.main-body {
+  /* display: -webkit-box;
+  display: -ms-flexbox; */
+  display: grid;
+  grid-template-columns: 25% 25% 25%;
+  background-color: rgba(255, 255, 255, 0.717);
+  padding: 4%;
+  column-gap: 3rem;
+  row-gap: 2rem;
+  margin: auto;
+  justify-content: center;
+}
+
+.tour-card {
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  border-radius: 1em;
+  margin: 2%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.tour-img img {
+  width: 100%;
+  border-top-left-radius: .3em;
+  border-top-right-radius: .3em;
+}
+
+.tour-name {
+  margin: auto;
+  text-align: center;
+}
+
+.tour-details {
+  display: grid;
+  grid-template-columns: 40% 40%;
+  text-align: center;
+}
+
+.text-image {
+  display: inline;
+  align-items: center;
+  flex-direction: column;
+  margin: 4%;
+  padding: 4%;
+}
+
+.fa {
+  color: rgb(0, 253, 0);
+}
+
+.card-footer {
+  background-color: rgb(211, 211, 208);
+  display: grid;
+  grid-template-columns: 44% 44%;
+  overflow: hidden;
+  border-bottom-left-radius: .3em;
+  border-bottom-right-radius: .3em;
+}
+
+.details{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.details a, .details a button {
+  border: none;
+  font-size: 18px;
+  width: 60%;
+  height: 50%;
+  border-radius: 20px;
+  background-color: rgb(69, 194, 79);
+  padding-top: .35rem;
+  padding-right: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.details a:hover {
+  border: 1px solid currentColor;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+
+
+::-webkit-scrollbar {
+  /* display: none; */
+  width: .1vw;
+  height: 1vh;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #d1ecff;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(157, 157, 157);
+  border-radius: 1rem;
+  width: 10px;;
+  /* border: .1rem solid transparent; */
+}

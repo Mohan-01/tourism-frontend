@@ -1,0 +1,40 @@
+.profile {
+    display: flex;
+    box-sizing: border-box;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    margin: 5rem 15rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.profile .logout {
+    position: absolute;
+    top: 6rem;
+    right: 2rem;
+    z-index: 100;
+    color: black;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    border: none;
+}
+
+.profile .logout:hover {
+    background-color: rgb(45, 101, 101);
+    color: white;
+}
+
+.profile-links {
+    background-color: rgb(45, 101, 101);
+}
+
+.profile-links, .profile-settings {
+    /* flex: auto; */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: -moz-fit-content;
+    width: fit-content;
+    text-transform: uppercase;
+    color: white;
+}

@@ -1,0 +1,39 @@
+.user-profile-settings {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15rem 0 0;
+    margin-left: 10rem;
+    /* background-color: white; */
+    color: black;
+}
+
+.user-profile-settings .settings-1 {
+    padding-bottom: 1rem;
+}
+
+.user-profile-settings .settings-2 {
+    padding-bottom: 5rem;
+}
+
+.user-profile-settings h2 {
+    padding: 5rem 0 2rem;
+    text-transform: uppercase;
+}
+
+.user-profile-settings .save {
+    margin-top: 2rem;
+    border: none;
+    padding: .7rem 2rem;
+    border-radius: 20px;
+    float: right;
+    cursor: pointer;
+    /* background-color: white; */
+    color: black;
+    font-size: large;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.user-profile-settings .save:hover {
+    background-color: rgb(45, 101, 101);
+    color: white;
+}
