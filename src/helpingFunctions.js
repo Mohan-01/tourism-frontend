@@ -10,10 +10,11 @@ export async function handleSignup(e, setMessage, navigate) {
         passwordConfirm: e.target.passwordConfirm.value
     };
     try {
-    const data = await axios.post('http://localhost:4201/api/v1/users/signup', {...body}, {
+    // const data = await axios.post('http://localhost:4201/api/v1/users/signup', {...body}, {
+    const data = await axios.post('https://tourism-backend-ce6w.onrender.com/api/v1/users/signup', {...body}, {
         headers: {
             contentType: 'multipart/form-data',
-            Accept: 'multipart/form-data'
+            Accept: 'multipart/form-data',
         }
     })
     if(data.status === 201) {
@@ -32,7 +33,8 @@ export async function handleLogin(e, setUser, setMessage, setColor, navigate, co
         email: e.target.email.value,
         password: e.target.password.value
     }
-    const data = await axios.post('http://localhost:4201/api/v1/users//login', {...body}, {
+    // const data = await axios.post('http://localhost:4201/api/v1/users//login', {...body}, {
+    const data = await axios.post('https://tourism-backend-ce6w.onrender.com/api/v1/users//login', {...body}, {
         headers: {
             contentType: 'application/json',
             Accept: 'application/json',
@@ -53,7 +55,8 @@ export async function handleLogin(e, setUser, setMessage, setColor, navigate, co
 
 export async function handleLogout(setUser, setMessage, navigate, cookies) {
     try {
-        const data = await axios.get('http://localhost:4201/api/v1/users/logout');
+        // const data = await axios.get('http://localhost:4201/api/v1/users/logout');
+        const data = await axios.get('https://tourism-backend-ce6w.onrender.com/api/v1/users/logout');
         if(data.status === 200) {
             setUser(null);
             setMessage('Logout Successful')
@@ -74,7 +77,8 @@ export async function handleUpdate(e, setMessage) {
         if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
         if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
         // take file in body
-        const data = await axios.patch('http://localhost:4201/api/v1/users/updateMe', {...body}, {
+        // const data = await axios.patch('http://localhost:4201/api/v1/users/updateMe', {...body}, {
+        const data = await axios.patch('https://tourism-backend-ce6w.onrender.com/api/v1/users/updateMe', {...body}, {
             headers: {
                 contentType: 'multipart/form-data',
                 Accept: 'multipart/form-data'
@@ -96,7 +100,8 @@ export async function handlePasswordChange(e, setMessage) {
         if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
         if(e.target.confirmPassword.value) body.confirmPassword = e.target.confirmPassword.value;
         // take file in body
-        const data = await axios.patch('http://localhost:4201/api/v1/users/updateMyPassword', {...body}, {
+        // const data = await axios.patch('http://localhost:4201/api/v1/users/updateMyPassword', {...body}, {
+        const data = await axios.patch('https://tourism-backend-ce6w.onrender.com/api/v1/users/updateMyPassword', {...body}, {
             headers: {
                 contentType: 'multipart/form-data',
                 Accept: 'multipart/form-data'

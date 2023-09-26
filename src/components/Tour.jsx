@@ -20,7 +20,8 @@ const Tour = ({setMessage}) => {
   useEffect(() => {
     try {
       setMessage('Loading...');
-    axios.get(`http://localhost:4201/api/v1/tours/${id}`, {
+    // axios.get(`http://localhost:4201/api/v1/tours/${id}`, {
+    axios.get(`https://tourism-backend-ce6w.onrender.com/api/v1/tours/${id}`, {
       headers: {
         contentType: 'application/json',
         Accept: 'application/json'

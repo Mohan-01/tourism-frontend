@@ -9,7 +9,8 @@ const Home = ({setMessage}) => {
     
     useEffect(() => {
       setMessage('Loading...');
-      axios.get('http://127.0.0.1:4201/api/v1/tours/').then(data => {
+      // axios.get('http://127.0.0.1:4201/api/v1/tours/').then(data => {
+      axios.get('https://tourism-backend-ce6w.onrender.com/api/v1/tours/').then(data => {
         data = data.data.data;
         // console.log(data);
         setTours(data);
