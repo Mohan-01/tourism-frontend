@@ -1,24 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import {Routes, Route} from 'react-router-dom'
-import axios from 'axios';
 import Card from './Card'
 import Tour from './Tour'
+import { getData } from '../helpingFunctions'
 
-const Home = ({setMessage}) => {
+const Home = ({setMessage, navigate, setError}) => {
     let [tours, setTours] = useState([]);
     
     useEffect(() => {
-      setMessage('Loading...');
-      // axios.get('http://127.0.0.1:4201/api/v1/tours/').then(data => {
-      axios.get('https://tourism-backend-ce6w.onrender.com/api/v1/tours/').then(data => {
-        data = data.data.data;
-        // console.log(data);
-        setTours(data);
-        setMessage(null);
-      }).catch(err => console.log(err))
-    }, [setMessage]);
+      getData('/api/v1/tours/', setTours, setMessage, navigate, setError);
+    }, [navigate, setError, setMessage]);
 
-    console.log('Home')
   return (
     <main className='main-body'>
       <Routes>
@@ -27,7 +19,7 @@ const Home = ({setMessage}) => {
       {
           tours.length
           ? tours.map(tour => <Card key={tour._id} tour={tour}/>)
-          : 'notThere'
+          : null
       }
     </main>
   )

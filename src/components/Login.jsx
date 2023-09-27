@@ -1,13 +1,12 @@
 import { handleLogin } from "../helpingFunctions"
 import '../css/Login.css';
 
-const Login = ({setUser, setMessage, setColor, navigate, cookies}) => {
-
+const Login = ({setUser, setMessage, navigate}) => {
   return (
     <main className="login">
       <div className="login-form">
       <h2>Login into your account</h2>
-      <form onSubmit={e => handleLogin(e, setUser, setMessage, setColor, navigate, cookies)}>
+      <form onSubmit={e => handleLogin(e, setUser, setMessage, navigate)}>
         <label htmlFor="email">Email address: </label>
         <input type="email" name="email" id="email" />
         <label htmlFor="password">Password: </label>

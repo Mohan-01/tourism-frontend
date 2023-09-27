@@ -1,117 +1,147 @@
-import axios from "axios";
+import {Axios as axios} from "./axios";
+
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        }
+        fileReader.onerror = error => reject(error);
+    })
+}
+
+export async function isLoggedIn(setUser) {
+    try {
+        const data = await axios.get('/api/v1/users/isLoggedIn', {withCredentials: true});
+        if(data.status === 200) {
+            setUser(data.data.data);
+        }
+    } catch (e) {}
+}
 
 export async function handleSignup(e, setMessage, navigate) {
     e.preventDefault();
+    const file = await convertToBase64(e.target.files[0]);
     const body = {
         name: e.target.name.value,
         email: e.target.email.value,
         role: e.target.role?.value || 'user',
         password: e.target.password.value,
-        passwordConfirm: e.target.passwordConfirm.value
+        passwordConfirm: e.target.passwordConfirm.value,
+        photo: file
     };
     try {
-    // const data = await axios.post('http://localhost:4201/api/v1/users/signup', {...body}, {
-    const data = await axios.post('https://tourism-backend-ce6w.onrender.com/api/v1/users/signup', {...body}, {
+    setMessage({text: 'Please wait Signing you up...', color: 'lightgreen', time: -1});
+    const data = await axios.post('/api/v1/users/signup', {...body}, {
         headers: {
             contentType: 'multipart/form-data',
             Accept: 'multipart/form-data',
         }
     })
     if(data.status === 201) {
-        setMessage('SignUp successful. You can login now')
+        setMessage({text: 'SignUp successful. You can login now', color: 'lightgreen', time: 2000});
     }
     }
     catch(e) {
-        setMessage(e.response.data);
+        setMessage({text: e.response.data, color: 'red', time: 2000});
     }
     navigate('/');
 }
 
-export async function handleLogin(e, setUser, setMessage, setColor, navigate, cookies) {
+export async function handleLogin(e, setUser, setMessage, navigate) {
     e.preventDefault();
     const body = {
         email: e.target.email.value,
         password: e.target.password.value
     }
-    // const data = await axios.post('http://localhost:4201/api/v1/users//login', {...body}, {
-    const data = await axios.post('https://tourism-backend-ce6w.onrender.com/api/v1/users//login', {...body}, {
-        headers: {
-            contentType: 'application/json',
-            Accept: 'application/json',
-        },
-    })
+
+    setMessage({text: 'Please wait Logging in...', color: 'lightgreen', time: -1})
+    const data = await axios.post('/api/v1/users/login', {...body}, {withCredentials: true})
     if(data.status === 200) {
-        setColor('lightgreen');
-        setMessage('Login successful');
-        console.log(data.data.data)
+        console.log('login successful')
+        setMessage({text: 'Login successful', color: 'lightgreen', time: 2000});
         setUser(data.data.data);
-        cookies.set('user', data.data.data, {path: '/', secure: true, sameSite: 'none', expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)});
     } else {
-        setColor('red');
-        setMessage(data.data.message);
+        setMessage({text: data.data.message, color: 'red', time: 2000});
     }
     navigate('/');
 }
 
-export async function handleLogout(setUser, setMessage, navigate, cookies) {
+export async function handleLogout(setUser, setMessage, navigate) {
     try {
         // const data = await axios.get('http://localhost:4201/api/v1/users/logout');
-        const data = await axios.get('https://tourism-backend-ce6w.onrender.com/api/v1/users/logout');
+        setMessage({text: 'Please wait Logging out...', color: 'lightgreen', time: -1})
+        const data = await axios.get('/api/v1/users/logout', {withCredentials: true});
         if(data.status === 200) {
             setUser(null);
-            setMessage('Logout Successful')
-            cookies.remove('user')
+            setMessage({text: 'Logout Successful', color: 'lightgreen', time: 2000})
         }
     } catch (e) {
-        setMessage('Error');
+        setMessage({text: 'Error', color: 'red', time: 2000});
         console.log(e)
     }
     navigate('/');
 
 }
 
-export async function handleUpdate(e, setMessage) {
+export async function handleUpdate(e, setMessage, setUser) {
+    e.preventDefault();
     try {
+        const files = [...e.target?.photo?.files] || null;
+        console.log(files[0]);
         const body = {}
-        if(e.target.password.value) body.password = e.target.password.value;
-        if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
-        if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
+        if(e.target.name.value) body.name = e.target.name.value;
+        if(e.target.email.value) body.email = e.target.email.value;
+        if(files) body.photo = await convertToBase64(files[0]);
         // take file in body
-        // const data = await axios.patch('http://localhost:4201/api/v1/users/updateMe', {...body}, {
-        const data = await axios.patch('https://tourism-backend-ce6w.onrender.com/api/v1/users/updateMe', {...body}, {
+        setMessage({text: 'Updating...', color: 'lightgreen', time: -1})
+        const data = await axios.patch('/api/v1/users/updateMe', {...body},
+        {
             headers: {
-                contentType: 'multipart/form-data',
-                Accept: 'multipart/form-data'
+                'Access-Control-Allow-Origin': 'https//localhost:3000'
             },
             withCredentials: true
         })
         if(data.status === 200) {
-            setMessage('Update Successful');
+            setUser(data.data.data)
+            setMessage({text: 'Update Successful', color: 'lightgreen', time: 2000});
+        }
+    } catch(err) {
+        setMessage({text: err.message, color:'red', time: 2000});
+        console.log(err);
+    }
+}
+
+export async function handlePasswordChange(e, setMessage) {
+    e.preventDefault();
+    try {
+        const body = {}
+        if(e.target.password.value) body.password = e.target.password.value;
+        if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
+        if(e.target.passwordConfirm.value) body.passwordConfirm = e.target.passwordConfirm.value;
+        // take file in body
+        setMessage({text: 'Changing Password...', color: 'lightgreen', time: -1})
+        const data = await axios.patch('/api/v1/users/updateMyPassword', {...body}, {
+            withCredentials: true
+        })
+        if(data.status === 200) {
+            setMessage({text: 'Password changed Successfully', color: 'lightgreen', time: 2000});
         }
     } catch(err) {
         console.log(err);
     }
 }
 
-export async function handlePasswordChange(e, setMessage) {
-    try {
-        const body = {}
-        if(e.target.password.value) body.password = e.target.password.value;
-        if(e.target.newPassword.value) body.newPassword = e.target.newPassword.value;
-        if(e.target.confirmPassword.value) body.confirmPassword = e.target.confirmPassword.value;
-        // take file in body
-        // const data = await axios.patch('http://localhost:4201/api/v1/users/updateMyPassword', {...body}, {
-        const data = await axios.patch('https://tourism-backend-ce6w.onrender.com/api/v1/users/updateMyPassword', {...body}, {
-            headers: {
-                contentType: 'multipart/form-data',
-                Accept: 'multipart/form-data'
-            },
-            withCredentials: true
-        })
-        if(data.status === 200) {
-            setMessage('Update Successful');
-        }
-    } catch(err) {
+export const getData = async (url, setTours, setMessage, navigate, setError) => {
+    setMessage({text: 'Loading...', color: 'lightgreen', time: -1})
+    axios.get(url).then(data => {
+      setTours(data.data.data);
+      setMessage(null);
+    }).catch(err => {
         console.log(err);
-    }
-}
+        setMessage(null);
+        setError(err.response.data);
+        navigate('/error');
+    })
+  }

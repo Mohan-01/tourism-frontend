@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import QuickFacts from "./QuickFacts";
@@ -7,34 +5,19 @@ import TourGuides from "./TourGuides";
 import { FaCalendar, FaStar } from "react-icons/fa";
 import {FaArrowTrendUp, FaUser} from "react-icons/fa6";
 import ReviewCard from "./ReviewCard";
-import Swiper from 'swiper';
+import { getData } from "../helpingFunctions";
 import '../css/Tour.css';
 
-const Tour = ({setMessage}) => {
+const Tour = ({setMessage, navigate, setError}) => {
   const [tour, setTour] = useState(null);
   const {id} = useParams();
-  const swiper = new Swiper('.swiper', {
-    speed: 400,
-    spaceBetween: 100
-  });
   useEffect(() => {
     try {
-      setMessage('Loading...');
-    // axios.get(`http://localhost:4201/api/v1/tours/${id}`, {
-    axios.get(`https://tourism-backend-ce6w.onrender.com/api/v1/tours/${id}`, {
-      headers: {
-        contentType: 'application/json',
-        Accept: 'application/json'
-      }
-    }).then(data => {
-      setTour(data.data.data);
-      setMessage(null);
-      console.log(data.data.data);
-    })
+      getData(`/api/v1/tours/${id}`, setTour, setMessage, navigate, setError);
     } catch (e) {
       console.log(e);
     }
-  }, [setMessage, id])
+  }, [setMessage, id, navigate, setError])
   return (
     <main>
     {
@@ -109,7 +92,7 @@ const Tour = ({setMessage}) => {
         <button>Book tour now!</button>
         </div>
       </div>
-      : 'loading...'
+      : null
     }
     </main>
   )
