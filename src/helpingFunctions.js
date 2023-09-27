@@ -139,12 +139,15 @@ export async function handlePasswordChange(e, setMessage) {
 }
 
 export const getData = async (url, setTours, setMessage, navigate, setError) => {
-    setMessage({text: 'Loading...', color: 'lightgreen', time: -1})
-    axios.get(url).then(data => {
-      setTours(data.data.data);
-      setMessage(null);
-    }).catch(err => {
-        console.log(err);
-        setMessage({test: err.response.data.message, color: 'red', time: 2000});
-    })
-  }
+    try {
+        
+        setMessage({text: 'Loading...', color: 'lightgreen', time: -1})
+        axios.get(url).then(data => {
+            setTours(data.data.data);
+            setMessage(null);
+        })
+    } catch(err) {
+    console.log(err);
+    setMessage({test: err.response.data.message, color: 'red', time: 2000});
+    }
+}
