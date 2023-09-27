@@ -43,27 +43,31 @@ export async function handleSignup(e, setMessage, navigate) {
         setMessage({text: 'SignUp successful. You can login now', color: 'lightgreen', time: 2000});
     }
     }
-    catch(e) {
-        setMessage({text: e.response.data, color: 'red', time: 2000});
+    catch(err) {
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
     }
     navigate('/');
 }
 
 export async function handleLogin(e, setUser, setMessage, navigate) {
     e.preventDefault();
-    const body = {
-        email: e.target.email.value,
-        password: e.target.password.value
-    }
-
-    setMessage({text: 'Please wait Logging in...', color: 'lightgreen', time: -1})
-    const data = await axios.post('/api/v1/users/login', {...body}, {withCredentials: true})
-    if(data.status === 200) {
-        console.log('login successful')
-        setMessage({text: 'Login successful', color: 'lightgreen', time: 2000});
-        setUser(data.data.data);
-    } else {
-        setMessage({text: data.data.message, color: 'red', time: 2000});
+    try {
+        const body = {
+            email: e.target.email.value,
+            password: e.target.password.value
+        }
+        
+        setMessage({text: 'Please wait Logging in...', color: 'lightgreen', time: -1})
+        const data = await axios.post('/api/v1/users/login', {...body}, {withCredentials: true})
+        if(data.status === 200) {
+            console.log('login successful')
+            setMessage({text: 'Login successful', color: 'lightgreen', time: 2000});
+            setUser(data.data.data);
+        } else {
+            setMessage({text: data.data.message, color: 'red', time: 2000});
+        }
+    } catch (err) {
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
     }
     navigate('/');
 }
@@ -77,9 +81,9 @@ export async function handleLogout(setUser, setMessage, navigate) {
             setUser(null);
             setMessage({text: 'Logout Successful', color: 'lightgreen', time: 2000})
         }
-    } catch (e) {
-        setMessage({text: 'Error', color: 'red', time: 2000});
-        console.log(e)
+    } catch (err) {
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
+        console.log(err)
     }
     navigate('/');
 
@@ -108,7 +112,7 @@ export async function handleUpdate(e, setMessage, setUser) {
             setMessage({text: 'Update Successful', color: 'lightgreen', time: 2000});
         }
     } catch(err) {
-        setMessage({text: err.message, color:'red', time: 2000});
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
         console.log(err);
     }
 }
@@ -130,6 +134,7 @@ export async function handlePasswordChange(e, setMessage) {
         }
     } catch(err) {
         console.log(err);
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
     }
 }
 
@@ -140,8 +145,6 @@ export const getData = async (url, setTours, setMessage, navigate, setError) => 
       setMessage(null);
     }).catch(err => {
         console.log(err);
-        setMessage(null);
-        setError(err.response.data);
-        navigate('/error');
+        setMessage({test: err.response.data.message, color: 'red', time: 2000});
     })
   }

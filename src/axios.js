@@ -7,7 +7,7 @@ const Axios = axios.create({
         contentType: 'application/json',
         Accept: 'application/json',
         // 'Access-Control-Allow-Origin': 'https//localhost:3000'
-        'Access-Control-Allow-Origin': 'https://tourism-6ppu.onrender.com/'
+        'Access-Control-Allow-Origin': 'https://tourism-6ppu.onrender.com'
         
     }
 })
