@@ -142,7 +142,7 @@ export const getData = async (url, setTours, setMessage, navigate, setError) => 
     try {
         
         setMessage({text: 'Loading...', color: 'lightgreen', time: -1})
-        axios.get(url).then(data => {
+        axios.get(url, {withCredentials: true}).then(data => {
             setTours(data.data.data);
             setMessage(null);
         })
